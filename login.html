@@ -4,21 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ingreso - Mi Primera Tienda</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=7" />
+  <script src="./app.js?v=7" defer></script>
 </head>
 <body>
-  <header class="contenedor">
-    <h1>Ingreso</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="registro.html">Registrarse</a>
-      <a href="login.html" aria-current="page">Ingresar</a>
-    </nav>
+  <header>
+    <div class="header-contenido">
+      <h1 class="site-title">
+        <a href="index.html">Botillería Donde el Chico Terry</a>
+      </h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="registro.html">Registrarse</a>
+        <a href="login.html" aria-current="page">Ingresar</a>
+        <button id="btnCarrito" class="btn-carrito">🛒 Carrito (<span id="carritoCantidad">0</span>)</button>
+      </nav>
+    </div>
   </header>
 
   <main class="contenedor">
-    <section aria-labelledby="login-titulo">
+    <section class="form-section" aria-labelledby="login-titulo">
       <h2 id="login-titulo">Ingresar al sitio</h2>
 
       <form id="formLogin" novalidate>
@@ -30,17 +35,17 @@
 
         <div class="campo">
           <label for="loginPassword">Contraseña</label>
-          <input id="loginPassword" name="loginPassword" type="password" required minlength="8" />
+          <input id="loginPassword" name="loginPassword" type="password" placeholder="Mínimo 8 caracteres" required minlength="8" />
           <small class="error" id="err-login-password" aria-live="polite"></small>
         </div>
 
-        <button class="btn" type="submit">Ingresar</button>
+        <button class="btn full" type="submit">Ingresar</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <div class="contenedor">
+    <div class="footer-contenido">
       <p>&copy; 2025 Mi Primera Tienda</p>
     </div>
   </footer>

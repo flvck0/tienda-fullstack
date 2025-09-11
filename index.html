@@ -3,48 +3,216 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Botilleria</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="app.js" defer></script>
+  <title>Botillería Donde el Chico Terry</title>
+  <link rel="stylesheet" href="./styles.css?v=7" />
+  <script src="./app.js?v=7" defer></script>
 </head>
 <body>
-  <header class="contenedor">
-    <h1>Botilleria donde el chico terry </h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="registro.html">Registrarse</a>
-      <a href="login.html">Ingresar</a>
-    </nav>
+  <!-- HEADER (título de texto) -->
+  <header>
+    <div class="header-contenido">
+      <h1 class="site-title">
+        <a href="index.html">Botillería Donde el Chico Terry</a>
+      </h1>
+
+      <nav>
+        <a href="index.html" aria-current="page">Inicio</a>
+        <a href="registro.html">Registrarse</a>
+        <a href="login.html">Ingresar</a>
+        <button id="btnCarrito" class="btn-carrito">
+          🛒 Carrito (<span id="carritoCantidad">0</span>)
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <main class="contenedor">
-    <div class="logo-botilleria"style="text-align:center;margin-bottom:20px">
-      <img src="ChatGPT_Image_2_sept_2025_22_10_56.png"alt="logo-botilleria"width="450">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay">
+      <h2>Bienvenidos a la botillería más prendida 🍻</h2>
+      <p>¡Ofertas exclusivas y delivery rápido a tu puerta!</p>
+      <a href="#productos-titulo" class="btn">Ver productos</a>
     </div>
-    <section aria-labelledby="productos-titulo">
-      <h2 id="productos-titulo">Copetes destacados</h2>
+  </section>
 
-      <article class="producto">
-        <img src="fireball-750-600x600.jpg" alt="Producto 1"style="width:520px;" />
-        <h3>Whisky Fireball</h3>
-        <p>Fireball Whisky es un potente whisky aromatizado con canela, lo que le confiere un sabor único y fuerte, es reconocido por tener la capacidad de quitar el frío con un solo shot, de ahí su fama de "aliento de dragón" puro fuego revitalizador.</p>
-        <button class="btn" data-demo-btn>Pedir</button>
-      </article>
-
-      <article class="producto">
-        <img src="1332232.png" alt="Producto 2"style="width: 595px;" />
-        <h3>Whiskey Jack Daniels Apple</h3>
-        <p>Descubre la irresistible fusión de sabores con Jack Daniel's Tennessee Apple. Sumérgete en la seductora combinación del emblemático Jack Daniel's Old No. 7 con el frescor y la dulzura del licor de manzanas artesanal. Disponible en Liquidos.cl en formato de 750 cc. ¡Experimenta el sabor que conquista paladares con cada sorbo!.</p>
-        <button class="btn" data-demo-btn>Pedir</button>
-      </article>
+  <main class="contenedor">
+    <!-- CATEGORÍAS -->
+    <section class="categorias">
+      <h2 class="sr-only">Categorías</h2>
+      <div class="chips" id="filtrosCategorias">
+        <button class="chip active" data-cat="todos">Todos</button>
+        <button class="chip" data-cat="cerveza">Cervezas</button>
+        <button class="chip" data-cat="whisky">Whisky</button>
+        <button class="chip" data-cat="vodka">Vodka</button>
+        <button class="chip" data-cat="ron">Ron</button>
+        <button class="chip" data-cat="tequila">Tequila</button>
+        <button class="chip" data-cat="vino">Vinos</button>
+        <button class="chip" data-cat="energetico">Energéticos</button>
+      </div>
     </section>
 
+    <!-- PRODUCTOS -->
+    <section aria-labelledby="productos-titulo" class="productos">
+      <h2 id="productos-titulo">Copetes destacados</h2>
+
+      <div class="grid-productos" id="gridProductos">
+        <!-- WHISKY -->
+        <article class="producto-card" data-cat="whisky">
+          <img src="imgs/fireball-750-600x600.jpg" alt="Whisky Fireball" />
+          <h3>Whisky Fireball</h3>
+          <p class="precio">$15.990</p>
+          <p>Whisky con sabor a canela, famoso por su “aliento de dragón”.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="whisky">
+          <img src="imgs/1332232.png" alt="Jack Daniels Apple" />
+          <h3>Jack Daniels Apple</h3>
+          <p class="precio">$18.990</p>
+          <p>Jack con un toque de manzana verde para refrescar la noche.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <!-- CERVEZAS -->
+        <article class="producto-card" data-cat="cerveza">
+          <img src="imgs/corona6pack.png" alt="Cerveza Corona 6 pack" />
+          <h3>Cerveza Corona 6 pack</h3>
+          <p class="precio">$7.990</p>
+          <p>Refrescante cerveza premium, ideal para compartir.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="cerveza">
+          <img src="imgs/Cristal6.jpg" alt="Cerveza Cristal 6 pack" />
+          <h3>Cerveza Cristal 6 pack</h3>
+          <p class="precio">$6.490</p>
+          <p>Clásica y heladita, para no fallar nunca.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="cerveza">
+          <img src="imgs/Heineken6pack.jpg" alt="Cerveza Heineken 6 pack" />
+          <h3>Heineken 6 pack</h3>
+          <p class="precio">$8.490</p>
+          <p>Premium europea, suave y equilibrada.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <!-- VODKA -->
+        <article class="producto-card" data-cat="vodka">
+          <img src="imgs/vodkaabsolut.png" alt="Vodka Absolut" />
+          <h3>Vodka Absolut</h3>
+          <p class="precio">$14.990</p>
+          <p>Clásico sueco de sabor puro para cócteles.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="vodka">
+          <img src="imgs/smirnof.webp" alt="Vodka Smirnoff 750 ml" />
+          <h3>Vodka Smirnoff 750ml</h3>
+          <p class="precio">$11.990</p>
+          <p>Versátil y rendidor, perfecto para mezclas.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <!-- RON -->
+        <article class="producto-card" data-cat="ron">
+          <img src="imgs/havanaron.jpg" alt="Ron Havana Club 3 años" />
+          <h3>Havana Club 3 años</h3>
+          <p class="precio">$13.990</p>
+          <p>El compañero ideal para un buen mojito.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="ron">
+          <img src="imgs/ron2.jpg" alt="Ron Captain Morgan Spiced" />
+          <h3>Captain Morgan Spiced</h3>
+          <p class="precio">$12.990</p>
+          <p>Ron especiado para darle power a tus mezclas.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <!-- TEQUILA -->
+        <article class="producto-card" data-cat="tequila">
+          <img src="imgs/JoseCuervo.jpeg" alt="Tequila Jose Cuervo Especial" />
+          <h3>Jose Cuervo Especial</h3>
+          <p class="precio">$16.990</p>
+          <p>Para shots, margaritas y la mejor previa.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <!-- VINOS -->
+        <article class="producto-card" data-cat="vino">
+          <img src="imgs/vino1.png" alt="Vino Cabernet Sauvignon Reserva" />
+          <h3>Cabernet Sauvignon Reserva</h3>
+          <p class="precio">$9.990</p>
+          <p>Tinto con cuerpo, ideal para carnes.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="vino">
+          <img src="imgs/vino2.jpg" alt="Vino Sauvignon Blanc" />
+          <h3>Sauvignon Blanc</h3>
+          <p class="precio">$8.490</p>
+          <p>Blanco fresco con notas cítricas.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <!-- ENERGÉTICOS -->
+        <article class="producto-card" data-cat="energetico">
+          <img src="imgs/redbull.webp" alt="Bebida energética Red Bull 250 ml" />
+          <h3>Red Bull 250ml</h3>
+          <p class="precio">$1.690</p>
+          <p>Energía para seguir la noche.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+
+        <article class="producto-card" data-cat="energetico">
+          <img src="imgs/monster.webp" alt="Bebida energética Monster 473 ml" />
+          <h3>Monster 473ml</h3>
+          <p class="precio">$1.990</p>
+          <p>Intenso y rendidor para mezclar.</p>
+          <button class="btn">Pedir ahora</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROMOCIONES -->
+    <section class="promo">
+      <h2>🔥 Promoción de la semana 🔥</h2>
+      <p>2x1 en cervezas Corona todos los viernes de 18:00 a 21:00 🍺</p>
+    </section>
+
+    <!-- RESEÑAS -->
+    <section class="resenas">
+      <h2>Lo que dicen nuestros clientes</h2>
+      <div class="grid-resenas">
+        <blockquote>
+          ⭐⭐⭐⭐⭐
+          <p>"El mejor lugar para comprar en la noche, siempre buena atención."</p>
+          <cite>- Juan P.</cite>
+        </blockquote>
+        <blockquote>
+          ⭐⭐⭐⭐⭐
+          <p>"Me salvaron en un carrete, el delivery llegó rapidísimo."</p>
+          <cite>- Camila G.</cite>
+        </blockquote>
+        <blockquote>
+          ⭐⭐⭐⭐⭐
+          <p>"Gran variedad y precios justos, recomendado 100%."</p>
+          <cite>- Felipe R.</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
     <section aria-labelledby="video-titulo">
-      <h2 id="video-titulo">Cerveza corona "la vida mas fina" </h2>
+      <h2 id="video-titulo">Cerveza Corona: "La vida más fina"</h2>
+      <p>Disfruta de la campaña oficial de una de las cervezas más populares del mundo.</p>
       <div class="video-responsivo">
         <iframe
           src="https://www.youtube.com/embed/C0H0zippfBQ"
-          title="aqui ira el video de ayuda"
+          title="Comercial de Cerveza Corona"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
@@ -53,13 +221,30 @@
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
-    <div class="contenedor">
-      <p>&copy;BotilleriaDondeElChicoTerry </p>
-      <p>Contacto: <a href="mailto:contacto@chicoterry.cl">contacto@chicoterry.cl</a></p>
-      <p>Horario de atencion: Lunes a vierndes de 10:00 a 22:00hrs.</p>
-
+    <div class="footer-contenido">
+      <p>&copy; 2025 Botillería Donde el Chico Terry</p>
+      <p>📍 Dirección: Av. Siempre Viva 123, Santiago, Chile</p>
+      <p>📧 <a href="mailto:contacto@chicoterry.cl">contacto@chicoterry.cl</a></p>
+      <p>🕑 Horario: Lunes a viernes de 10:00 a 22:00 hrs</p>
+      <div class="redes">
+        <a href="#">📘 Facebook</a> |
+        <a href="#">📸 Instagram</a> |
+        <a href="#">💬 WhatsApp</a>
+      </div>
     </div>
   </footer>
+
+  <!-- MODAL CARRITO -->
+  <div id="carritoModal" class="carrito-modal">
+    <div class="carrito-contenido">
+      <span class="cerrar" id="cerrarCarrito">&times;</span>
+      <h2>🛍️ Tu Carrito</h2>
+      <ul id="listaCarrito"></ul>
+      <p id="totalCarrito"><strong>Total:</strong> $0</p>
+      <button id="finalizarCompra" class="btn full">Finalizar compra</button>
+    </div>
+  </div>
 </body>
 </html>

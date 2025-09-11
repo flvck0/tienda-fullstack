@@ -4,21 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro - Mi Primera Tienda</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=7" />
+  <script src="./app.js?v=7" defer></script>
 </head>
 <body>
-  <header class="contenedor">
-    <h1>Registro</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="registro.html" aria-current="page">Registrarse</a>
-      <a href="login.html">Ingresar</a>
-    </nav>
+  <header>
+    <div class="header-contenido">
+      <h1 class="site-title">
+        <a href="index.html">Botillería Donde el Chico Terry</a>
+      </h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="registro.html" aria-current="page">Registrarse</a>
+        <a href="login.html">Ingresar</a>
+        <button id="btnCarrito" class="btn-carrito">🛒 Carrito (<span id="carritoCantidad">0</span>)</button>
+      </nav>
+    </div>
   </header>
 
   <main class="contenedor">
-    <section aria-labelledby="registro-titulo">
+    <section class="form-section" aria-labelledby="registro-titulo">
       <h2 id="registro-titulo">Crear cuenta</h2>
 
       <form id="formRegistro" novalidate>
@@ -59,19 +64,19 @@
           <small class="error" id="err-pais" aria-live="polite"></small>
         </div>
 
-        <div class="campo check">
+        <div class="campo checkbox">
           <input id="terminos" type="checkbox" required />
           <label for="terminos">Acepto los términos y condiciones</label>
           <small class="error" id="err-terminos" aria-live="polite"></small>
         </div>
 
-        <button class="btn" type="submit">Registrarme</button>
+        <button class="btn full" type="submit">Registrarme</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <div class="contenedor">
+    <div class="footer-contenido">
       <p>&copy; 2025 Mi Primera Tienda</p>
     </div>
   </footer>
