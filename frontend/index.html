@@ -1,13 +1,47 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>Botillería — Donde el Chico Terry</title>
+    <meta name="theme-color" content="#0b0b0b" />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Preload video -->
+    <link rel="preload" as="video" href="/videos/video_fondo.mp4" type="video/mp4" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="bg-video" aria-hidden="true" style="
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    ">
+      <video
+        id="bg-video-media"
+        autoplay
+        muted
+        loop
+        playsinline
+        src="/videos/video_fondo.mp4"
+        style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9) contrast(1) saturate(1);"
+      ></video>
+      <div id="bg-video-overlay" style="
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.45) 100%);
+      "></div>
+    </div>
+
+    <div id="root" style="position: relative; z-index: 1;"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        #bg-video-media { display: none; }
+        #bg-video { background: #111; }
+      }
+    </style>
   </body>
 </html>

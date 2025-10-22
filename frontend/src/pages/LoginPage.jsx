@@ -19,17 +19,14 @@ function LoginPage() {
 
     if (ok) {
       console.log("¡Formulario Login OK!", { email, password });
-      
       fetch('http://localhost:3001/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       })
       .then(res => res.json())
-      .then(data => {
-        alert(data.message);
-      })
-      .catch(err => alert("Error al conectar con el servidor."));
+      .then(data => { alert(data.message); })
+      .catch(() => alert("Error al conectar con el servidor."));
     }
   };
 

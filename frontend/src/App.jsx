@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 
-// Importamos las paginas
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 
-// importacion del carrito
 import { useCart } from './context/CartContext';
 
 function App() {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const { 
-    carrito, 
-    eliminarDelCarrito, 
-    vaciarCarrito 
-  } = useCart();
+  const [showBackTop, setShowBackTop] = useState(false);
 
+  const { carrito, eliminarDelCarrito, vaciarCarrito } = useCart();
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
   const totalPrecio = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-  
+
   const handleFinalizarCompra = () => {
     if (carrito.length === 0) return alert("Tu carrito está vacío 🛒");
     vaciarCarrito();
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    const onScroll = () => setShowBackTop(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
   return (
-    <> 
+    <>
       <header>
         <div className="header-contenido">
           <h1 className="site-title">
@@ -39,24 +40,20 @@ function App() {
             <Link to="/">Inicio</Link>
             <Link to="/registro">Registrarse</Link>
             <Link to="/login">Ingresar</Link>
-            
-            <button 
-              className="btn-carrito" 
-              onClick={() => setIsModalOpen(true)}
-            >
+
+            <button className="btn-carrito" onClick={() => setIsModalOpen(true)}>
               🛒 Carrito (<span id="carritoCantidad">{totalItems}</span>)
             </button>
           </nav>
         </div>
       </header>
 
-      {/* --- ÁREA DE CONTENIDO DINÁMICO --- */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/registro" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
-      
+
       <footer>
         <div className="footer-contenido">
           <p>&copy; 2025 Botillería Donde el Chico Terry</p>
@@ -70,12 +67,17 @@ function App() {
           </div>
         </div>
       </footer>
-      
+
+      {/* Botón scroll-top */}
+      <button className={`back-top ${showBackTop ? 'show' : ''}`} onClick={scrollTop} aria-label="Subir">
+        <span>🍺</span>
+      </button>
+
       {isModalOpen && (
-        <div 
-          id="carritoModal" 
-          className="carrito-modal" 
-          style={{ display: 'block' }} 
+        <div
+          id="carritoModal"
+          className="carrito-modal"
+          style={{ display: 'block' }}
           onClick={(e) => { if (e.target.id === 'carritoModal') setIsModalOpen(false); }}
         >
           <div className="carrito-contenido">

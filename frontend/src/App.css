@@ -40,3 +40,76 @@
 .read-the-docs {
   color: #888;
 }
+
+/* ===== Fondo de video global (fijo) ===== */
+#bg-video {
+  position: fixed;
+  inset: 0;                 /* top/right/bottom/left: 0 */
+  z-index: 0;               /* Debajo de la app */
+  pointer-events: none;     /* No intercepta clics */
+  overflow: hidden;
+}
+
+#bg-video-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* Rellena sin deformar */
+  filter: brightness(0.9) contrast(1) saturate(1);
+}
+
+/* Oscurecido suave para legibilidad global */
+#bg-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+              rgba(0,0,0,0.15) 0%,
+              rgba(0,0,0,0.35) 100%);
+}
+
+/* La app va por encima del video */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Respeta "reducir movimiento" */
+@media (prefers-reduced-motion: reduce) {
+  #bg-video-media { display: none; }
+  #bg-video { background: #111; }
+}
+
+/* ===== HERO mantiene la foto del Chico Terry ===== */
+/* Si ya tienes estos estilos, déjalos tal cual; si no, actívalos: */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 4rem 1rem;
+  overflow: hidden;
+
+  /* Ajusta la ruta de la imagen a la que usabas antes */
+  background: url("/images/chico-terry-hero.jpg") center/cover no-repeat;
+}
+
+/* Capa del hero para asegurar lectura sobre la foto */
+.hero .hero-overlay {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* Opcional: oscurecer un pelín la foto del hero, SIN tapar el video global */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.15)
+  );
+  z-index: 0;
+}

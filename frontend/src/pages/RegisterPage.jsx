@@ -27,17 +27,14 @@ function RegisterPage() {
 
     if (ok) {
       console.log("¡Formulario OK!", { nombre, email, password, pais });
-      
       fetch('http://localhost:3001/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, email, password, pais })
       })
       .then(res => res.json())
-      .then(data => {
-        alert(data.message);
-      })
-      .catch(err => alert("Error al conectar con el servidor."));
+      .then(data => { alert(data.message); })
+      .catch(() => alert("Error al conectar con el servidor."));
     }
   };
 
@@ -47,7 +44,6 @@ function RegisterPage() {
         <h2 id="registro-titulo">Crear cuenta</h2>
 
         <form id="formRegistro" noValidate onSubmit={handleSubmit}>
-          
           <div className="campo">
             <label htmlFor="nombre">Nombre completo</label>
             <input id="nombre" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
