@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "categoria": "whisky",
+    "img": "imgs/fireball-750-600x600.jpg",
+    "alt": "Whisky Fireball",
+    "nombre": "Whisky Fireball",
+    "precio": 15990,
+    "descripcion": "Whisky con sabor a canela, famoso por su “aliento de dragón”."
+  },
+  {
+    "id": 2,
+    "categoria": "whisky",
+    "img": "imgs/1332232.png",
+    "alt": "Jack Daniels Apple",
+    "nombre": "Jack Daniels Apple",
+    "precio": 18990,
+    "descripcion": "Jack con un toque de manzana verde para refrescar la noche."
+  },
+  {
+    "id": 3,
+    "categoria": "cerveza",
+    "img": "imgs/corona6pack.png",
+    "alt": "Cerveza Corona 6 pack",
+    "nombre": "Cerveza Corona 6 pack",
+    "precio": 7990,
+    "descripcion": "Refrescante cerveza premium, ideal para compartir."
+  },
+  {
+    "id": 4,
+    "categoria": "cerveza",
+    "img": "imgs/Cristal6.jpg",
+    "alt": "Cerveza Cristal 6 pack",
+    "nombre": "Cerveza Cristal 6 pack",
+    "precio": 6490,
+    "descripcion": "Clásica y heladita, para no fallar nunca."
+  },
+  {
+    "id": 5,
+    "categoria": "cerveza",
+    "img": "imgs/Heineken6pack.jpg",
+    "alt": "Cerveza Heineken 6 pack",
+    "nombre": "Heineken 6 pack",
+    "precio": 8490,
+    "descripcion": "Premium europea, suave y equilibrada."
+  },
+  {
+    "id": 6,
+    "categoria": "vodka",
+    "img": "imgs/vodkaabsolut.png",
+    "alt": "Vodka Absolut",
+    "nombre": "Vodka Absolut",
+    "precio": 14990,
+    "descripcion": "Clásico sueco de sabor puro para cócteles."
+  },
+  {
+    "id": 7,
+    "categoria": "vodka",
+    "img": "imgs/smirnof.webp",
+    "alt": "Vodka Smirnoff 750 ml",
+    "nombre": "Vodka Smirnoff 750ml",
+    "precio": 11990,
+    "descripcion": "Versátil y rendidor, perfecto para mezclas."
+  },
+  {
+    "id": 8,
+    "categoria": "ron",
+    "img": "imgs/havanaron.jpg",
+    "alt": "Ron Havana Club 3 años",
+    "nombre": "Havana Club 3 años",
+    "precio": 13990,
+    "descripcion": "El compañero ideal para un buen mojito."
+  },
+  {
+    "id": 9,
+    "categoria": "ron",
+    "img": "imgs/ron2.jpg",
+    "alt": "Ron Captain Morgan Spiced",
+    "nombre": "Captain Morgan Spiced",
+    "precio": 12990,
+    "descripcion": "Ron especiado para darle power a tus mezclas."
+  },
+  {
+    "id": 10,
+    "categoria": "tequila",
+    "img": "imgs/JoseCuervo.jpeg",
+    "alt": "Tequila Jose Cuervo Especial",
+    "nombre": "Jose Cuervo Especial",
+    "precio": 16990,
+    "descripcion": "Para shots, margaritas y la mejor previa."
+  },
+  {
+    "id": 11,
+    "categoria": "vino",
+    "img": "imgs/vino1.png",
+    "alt": "Vino Cabernet Sauvignon Reserva",
+    "nombre": "Cabernet Sauvignon Reserva",
+    "precio": 9990,
+    "descripcion": "Tinto con cuerpo, ideal para carnes."
+  },
+  {
+    "id": 12,
+    "categoria": "vino",
+    "img": "imgs/vino2.jpg",
+    "alt": "Vino Sauvignon Blanc",
+    "nombre": "Sauvignon Blanc",
+    "precio": 8490,
+    "descripcion": "Blanco fresco con notas cítricas."
+  },
+  {
+    "id": 13,
+    "categoria": "energetico",
+    "img": "imgs/redbull.webp",
+    "alt": "Bebida energética Red Bull 250 ml",
+    "nombre": "Red Bull 250ml",
+    "precio": 1690,
+    "descripcion": "Energía para seguir la noche."
+  },
+  {
+    "id": 14,
+    "categoria": "energetico",
+    "img": "imgs/monster.webp",
+    "alt": "Bebida energética Monster 473 ml",
+    "nombre": "Monster 473ml",
+    "precio": 1990,
+    "descripcion": "Intenso y rendidor para mezclar."
+  }
+]
