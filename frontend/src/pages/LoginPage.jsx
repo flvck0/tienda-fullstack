@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // <-- AÑADIDO: para redirigir
 
+// Tu lógica (sin cambios)
 const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 function LoginPage() {
+  // Tu lógica (sin cambios)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
+  const navigate = useNavigate(); // <-- AÑADIDO
+
+  // Tu lógica (solo 1 línea añadida)
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
@@ -25,32 +31,61 @@ function LoginPage() {
         body: JSON.stringify({ email, password })
       })
       .then(res => res.json())
-      .then(data => { alert(data.message); })
+      .then(data => { 
+        alert(data.message);
+        navigate('/'); // <-- AÑADIDO: Redirige al inicio
+      })
       .catch(() => alert("Error al conectar con el servidor."));
     }
   };
 
+  // --- TU JSX (Refactorizado con Bootstrap) ---
   return (
-    <main className="contenedor">
-      <section className="form-section" aria-labelledby="login-titulo">
-        <h2 id="login-titulo">Ingresar al sitio</h2>
+    <main className="container my-5">
+      <div className="row justify-content-center">
+        {/* Usamos una columna más estrecha para el login */}
+        <div className="col-lg-5 col-md-7">
+          {/* Añadimos un Card de Bootstrap para enmarcar */}
+          <div className="card shadow-sm border-0">
+            <div className="card-body p-4 p-md-5">
+              <h2 id="login-titulo" className="text-center h3 mb-4">Ingresar al sitio</h2>
 
-        <form id="formLogin" noValidate onSubmit={handleSubmit}>
-          <div className="campo">
-            <label htmlFor="loginEmail">Correo electrónico</label>
-            <input id="loginEmail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            {errors.email && <small className="error">{errors.email}</small>}
+              <form id="formLogin" noValidate onSubmit={handleSubmit}>
+                
+                {/* Estructura de formulario Bootstrap para "Email" */}
+                <div className="mb-3">
+                  <label htmlFor="loginEmail" className="form-label">Correo electrónico</label>
+                  <input 
+                    id="loginEmail" 
+                    type="email" 
+                    className={`form-control ${errors.email ? 'is-invalid' : ''}`} // Clase dinámica
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                  />
+                  {/* Mensaje de error de Bootstrap */}
+                  {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                </div>
+
+                {/* Estructura de formulario Bootstrap para "Password" */}
+                <div className="mb-3">
+                  <label htmlFor="loginPassword" className="form-label">Contraseña</label>
+                  <input 
+                    id="loginPassword" 
+                    type="password" 
+                    className={`form-control ${errors.password ? 'is-invalid' : ''}`} 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                  />
+                  {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                </div>
+
+                {/* Botón de Bootstrap (w-100 = full width) */}
+                <button className="btn btn-warning w-100 btn-lg mt-3" type="submit">Ingresar</button>
+              </form>
+            </div>
           </div>
-
-          <div className="campo">
-            <label htmlFor="loginPassword">Contraseña</label>
-            <input id="loginPassword" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            {errors.password && <small className="error">{errors.password}</small>}
-          </div>
-
-          <button className="btn full" type="submit">Ingresar</button>
-        </form>
-      </section>
+        </div>
+      </div>
     </main>
   );
 }

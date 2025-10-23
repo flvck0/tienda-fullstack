@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-
 import { useCart } from './context/CartContext';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showBackTop, setShowBackTop] = useState(false);
+  const [showBackTop, setShowBackTop] = useState(false); // Tu lógica
 
   const { carrito, eliminarDelCarrito, vaciarCarrito } = useCart();
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
@@ -21,6 +19,7 @@ function App() {
     setIsModalOpen(false);
   };
 
+  // Tu lógica para el botón de scroll (se mantiene intacta)
   useEffect(() => {
     const onScroll = () => setShowBackTop(window.scrollY > 400);
     window.addEventListener('scroll', onScroll);
@@ -31,72 +30,130 @@ function App() {
 
   return (
     <>
+      {/* --- HEADER REFACTORIZADO CON NAVBAR DE BOOTSTRAP --- */}
       <header>
-        <div className="header-contenido">
-          <h1 className="site-title">
-            <Link to="/">Botillería Donde el Chico Terry</Link>
-          </h1>
-          <nav>
-            <Link to="/">Inicio</Link>
-            <Link to="/registro">Registrarse</Link>
-            <Link to="/login">Ingresar</Link>
-
-            <button className="btn-carrito" onClick={() => setIsModalOpen(true)}>
-              🛒 Carrito (<span id="carritoCantidad">{totalItems}</span>)
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+          <div className="container">
+            <Link className="navbar-brand" to="/">
+              Botillería Donde el Chico Terry
+            </Link>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
             </button>
-          </nav>
-        </div>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ms-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">Inicio</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/registro">Registrarse</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Ingresar</Link>
+                </li>
+                <li className="nav-item">
+                  <button
+                    className="btn btn-warning ms-lg-3"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    🛒 Carrito ({totalItems})
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </header>
 
+      {/* --- RUTAS (Esto se queda igual) --- */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/registro" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
 
-      <footer>
-        <div className="footer-contenido">
-          <p>&copy; 2025 Botillería Donde el Chico Terry</p>
-          <p>📍 Dirección: Av. Siempre Viva 123, Santiago, Chile</p>
-          <p>📧 <a href="mailto:contacto@chicoterry.cl">contacto@chicoterry.cl</a></p>
-          <p>🕑 Horario: Lunes a viernes de 10:00 a 22:00 hrs</p>
+      {/* --- FOOTER REFACTORIZADO CON BOOTSTRAP --- */}
+      <footer className="bg-dark text-white text-center p-4 mt-5">
+        <div className="container">
+          <p className="mb-1">&copy; 2025 Botillería Donde el Chico Terry</p>
+          <p className="mb-1">📍 Dirección: Av. Siempre Viva 123, Santiago, Chile</p>
+          <p className="mb-1">📧 <a href="mailto:contacto@chicoterry.cl" className="text-warning">contacto@chicoterry.cl</a></p>
+          <p className="mb-1">🕑 Horario: Lunes a viernes de 10:00 a 22:00 hrs</p>
           <div className="redes">
-            <a href="#">📘 Facebook</a> |
-            <a href="#">📸 Instagram</a> |
-            <a href="#">💬 WhatsApp</a>
+            <a href="#" className="text-white mx-2">📘 Facebook</a> |
+            <a href="#" className="text-white mx-2">📸 Instagram</a> |
+            <a href="#" className="text-white mx-2">💬 WhatsApp</a>
           </div>
         </div>
       </footer>
 
-      {/* Botón scroll-top */}
+      {/* --- TU BOTÓN (Se mantiene intacto) --- */}
       <button className={`back-top ${showBackTop ? 'show' : ''}`} onClick={scrollTop} aria-label="Subir">
         <span>🍺</span>
       </button>
 
+      {/* --- MODAL REFACTORIZADO CON BOOTSTRAP --- */}
       {isModalOpen && (
         <div
-          id="carritoModal"
-          className="carrito-modal"
-          style={{ display: 'block' }}
-          onClick={(e) => { if (e.target.id === 'carritoModal') setIsModalOpen(false); }}
+          className="modal"
+          style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+          onClick={(e) => {
+            if (e.target.className === 'modal') setIsModalOpen(false);
+          }}
         >
-          <div className="carrito-contenido">
-            <span className="cerrar" onClick={() => setIsModalOpen(false)}>&times;</span>
-            <h2>🛍️ Tu Carrito</h2>
-            <ul id="listaCarrito">
-              {carrito.length === 0 ? <p>Tu carrito está vacío.</p> : (
-                carrito.map(item => (
-                  <li key={item.id}>
-                    <span>{item.nombre} (x{item.cantidad}) - ${ (item.precio * item.cantidad).toLocaleString() }</span>
-                    <button onClick={() => eliminarDelCarrito(item.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '10px' }}>❌</button>
-                  </li>
-                ))
-              )}
-            </ul>
-            <p id="totalCarrito"><strong>Total:</strong> ${totalPrecio.toLocaleString()}</p>
-            <button id="finalizarCompra" className="btn full" onClick={handleFinalizarCompra}>
-              Finalizar compra
-            </button>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">🛍️ Tu Carrito</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setIsModalOpen(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                {carrito.length === 0 ? (
+                  <p>Tu carrito está vacío.</p>
+                ) : (
+                  <ul className="list-group list-group-flush">
+                    {carrito.map(item => (
+                      <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          {item.nombre} (x{item.cantidad})
+                          <br />
+                          <small className="text-muted">${(item.precio * item.cantidad).toLocaleString()}</small>
+                        </div>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => eliminarDelCarrito(item.id)}
+                        >
+                          ❌
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <div className="modal-footer d-flex justify-content-between align-items-center">
+                <h5 className="mb-0">Total: ${totalPrecio.toLocaleString()}</h5>
+                <button
+                  id="finalizarCompra"
+                  className="btn btn-success"
+                  onClick={handleFinalizarCompra}
+                  disabled={carrito.length === 0}
+                >
+                  Finalizar compra
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

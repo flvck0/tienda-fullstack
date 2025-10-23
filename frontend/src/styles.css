@@ -125,10 +125,10 @@ header nav a:hover{ color: var(--brand-2); }
 
 /* PROMO */
 .promo{
-  background: linear-gradient(180deg, var(--brand-2), var(--brand));
-  color:#1a1a1a; text-align:center; padding:1.4rem; border-radius:14px;
+  background: #0f0f0f;
+  color:#fff; text-align:center; padding:1.4rem; border-radius:14px;
   margin: 2rem auto; font-size:1.05rem; font-weight:800; max-width:1200px;
-  box-shadow: 0 10px 26px rgba(245,166,35,.25);
+  box-shadow: 0 10px 26px rgba(7, 6, 4, 0.25);
 }
 
 /* RESEÑAS */
