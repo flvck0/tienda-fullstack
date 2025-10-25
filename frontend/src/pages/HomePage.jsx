@@ -119,7 +119,9 @@ function HomePage() {
 
       {/* --- PRODUCTOS (Refactorizado con Grilla y Cards) --- */}
       <section className="container">
-        <h2 id="productos-titulo" className="text-center mb-4">Copetes destacados</h2>
+        <div className="section-title-wrap">
+          <h2 id="productos-titulo" className="section-title">Copetes destacados</h2>
+        </div>
 
         {/* Usamos la grilla de Bootstrap 'row' y 'g-4' (gap) */}
         <div className="row g-4" id="gridProductos">
@@ -139,10 +141,16 @@ function HomePage() {
               {/* Usamos el componente Card de Bootstrap */}
               <div className="card h-100 shadow-sm position-relative">
                 
-                {/* Badge de Bootstrap (usando tu lógica) */}
-                <span className={`badge ${getBadgeClass(prod.categoria)} position-absolute top-0 end-0 m-2`}>
+                <span
+                  className={`badge ${
+                    String(prod.categoria).toLowerCase() === 'cerveza'
+                      ? 'badge-promo bg-warning text-dark'
+                      : 'badge-destacado bg-success text-white'
+                  } position-absolute top-0 start-0 ms-2 mt-2 rounded-3 shadow-sm px-3 py-1`}
+                >
                   {String(prod.categoria).toLowerCase() === 'cerveza' ? '2x1' : 'Destacado'}
                 </span>
+
 
                 {/* Mantenemos tu clase 'img-wrap' para el estilo de la imagen */}
                 <div className="img-wrap">
@@ -173,9 +181,11 @@ function HomePage() {
       </section>
 
       {/* --- PROMOCIONES (Refactorizado) --- */}
-      <section className="container-fluid bg-warning-subtle text-center p-5 my-5">
-        <h2 className="fw-bold">🔥 Promoción de la semana 🔥</h2>
-        <p className="fs-5">2x1 en cervezas Corona todos los viernes de 18:00 a 21:00 🍺</p>
+      <section className="container my-5">
+        <div className="promo-banner text-center">
+          <h2 className="promo-title">🔥 Promoción de la semana 🔥</h2>
+          <p className="promo-subtitle">2x1 en cervezas Corona todos los viernes de 18:00 a 21:00 🍺</p>
+        </div>
       </section>
 
       {/* --- RESEÑAS (Refactorizado con Grilla y Cards) --- */}
