@@ -48,7 +48,7 @@ cd backend
 Una vez en la carpeta backend, ejecuta el servidor:
 node start.js
 El servidor backend ahora estará corriendo.
--------------
+
 2. Iniciar el Frontend:
 
 Abrir otra terminal (Command Prompt).
@@ -61,7 +61,11 @@ npm run dev
 Esto generará un link (usualmente http://localhost:5173 o similar) en la terminal.
 Copia y pega ese link en tu navegador preferido para ver la página.
 
--------------
+Pruebas (Testing)
+Este proyecto utiliza Jasmine y Karma para asegurar la calidad del código.
+Para ejecutar la suite de pruebas:
+#ejecuta los tests
+npm test
 
 
 
