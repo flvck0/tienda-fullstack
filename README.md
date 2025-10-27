@@ -67,16 +67,14 @@ Para ejecutar la suite de pruebas:
 
 #ejecuta los tests
 Backend
-cd backend
-npm i
-npm test
-# salida esperada: "3 specs, 0 failures"
+-cd backend
+-npm i
+-npm test (salida esperada: "3 specs, 0 failures")
 
 Frontend
-cd ../frontend
-npm i
-npm test
-# salida esperada: "TOTAL: 10 SUCCESS"
+-cd ../frontend
+-npm i
+-npm test (salida esperada: "TOTAL: 10 SUCCESS")
 
 
 
