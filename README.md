@@ -64,9 +64,19 @@ Copia y pega ese link en tu navegador preferido para ver la página.
 Pruebas (Testing)
 Este proyecto utiliza Jasmine y Karma para asegurar la calidad del código.
 Para ejecutar la suite de pruebas:
-#ejecuta los tests
-npm test
 
+#ejecuta los tests
+Backend
+cd backend
+npm i
+npm test
+# salida esperada: "3 specs, 0 failures"
+
+Frontend
+cd ../frontend
+npm i
+npm test
+# salida esperada: "TOTAL: 10 SUCCESS"
 
 
 
