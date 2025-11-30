@@ -1,6 +1,6 @@
-package botilleriaBackend.demo.Producto.repository;
+package botilleriaBackend.demo.Productos.repository;
 
-import botilleriaBackend.demo.Producto.model.Producto;
+import botilleriaBackend.demo.Productos.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,9 @@
-package botilleriaBackend.demo.model;
+package botilleriaBackend.demo.Productos.model; // 👈 CAMBIO CRÍTICO: Agregamos ".Productos"
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Entity
@@ -37,7 +36,6 @@ public class Producto {
     @Column(name = "imagen_url", length = 255)
     private String imagenUrl;
 
-    // 👉 NUEVO: categoría (para filtros en el frontend)
     @Column(length = 50)
     private String categoria;
 }

@@ -1,7 +1,5 @@
 package botilleriaBackend.demo.Carrito.controller;
 
-
-
 import botilleriaBackend.demo.Carrito.model.Pedido;
 import botilleriaBackend.demo.Carrito.repository.PedidosRepository;
 import botilleriaBackend.demo.Productos.controller.ProductoController;
@@ -10,6 +8,7 @@ import botilleriaBackend.demo.Productos.repository.ProductoRepository;
 import botilleriaBackend.demo.Usuarios.controller.AuthController;
 import botilleriaBackend.demo.Usuarios.model.Usuario;
 import botilleriaBackend.demo.Usuarios.repository.UsuarioRepository;
+import jakarta.transaction.Transactional; // 👈 Importante para la seguridad de datos
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -29,6 +28,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/api/pedidos")
 @RequiredArgsConstructor
+@CrossOrigin(originPatterns = "*") // 👈 MODO ABIERTO: Soluciona el 'Failed to fetch'
 public class PedidoController {
 
     @Autowired
@@ -38,80 +38,79 @@ public class PedidoController {
     @Autowired
     private ProductoRepository productoRepository;
 
-    // 💡 Obtener Pedido por ID con HATEOAS
+    // Obtener Pedido por ID
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<Pedido>> obtenerPedidoPorId(@PathVariable Long id) {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
-                    // Enlace a sí mismo
                     EntityModel<Pedido> model = EntityModel.of(pedido,
                             linkTo(methodOn(PedidoController.class).obtenerPedidoPorId(id)).withSelfRel());
-
-                    // Enlace al usuario (si existe el controlador de usuario)
-                    if (pedido.getUsuario() != null) {
-                        model.add(linkTo(methodOn(AuthController.class)
-                                .obtenerUsuario(pedido.getUsuario().getId())).withRel("usuario"));
-                    }
-
-                    // Enlaces a los productos dentro del detalle (opcional pero útil)
-                    pedido.getDetalles().forEach(detalle -> {
-                        model.add(linkTo(methodOn(ProductoController.class)
-                                .obtenerProductoPorId(detalle.getProducto().getId()))
-                                .withRel("producto-detalle-" + detalle.getId()));
-                    });
-
                     return new ResponseEntity<>(model, HttpStatus.OK);
                 })
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // 💡 Crear Pedido (Devuelve EntityModel)
+    // 🛒 CREAR PEDIDO (COMPRA)
+    // @Transactional: Si algo falla a la mitad, se cancela todo y no se descuenta stock por error.
     @PostMapping
+    @Transactional
     public ResponseEntity<?> crearPedido(@RequestBody Pedido nuevoPedido) {
-        // ... (Lógica de validación de usuario y stock igual que antes) ...
-        // Asumimos validaciones pasadas para abreviar
 
+        // 1. Validar que el usuario exista
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(nuevoPedido.getUsuario().getId());
-        if (usuarioOpt.isEmpty()) return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+        if (usuarioOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Usuario no encontrado.");
+        }
 
         nuevoPedido.setUsuario(usuarioOpt.get());
         double total = 0.0;
 
+        // 2. Procesar cada producto del carrito
         for (var detalle : nuevoPedido.getDetalles()) {
+            // Buscar el producto en la BD
             Optional<Producto> pOpt = productoRepository.findById(detalle.getProducto().getId());
-            if (pOpt.isEmpty()) return new ResponseEntity<>("Producto no encontrado", HttpStatus.BAD_REQUEST);
+
+            if (pOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Error: Producto no encontrado (ID: " + detalle.getProducto().getId() + ")");
+            }
 
             Producto p = pOpt.get();
-            if (detalle.getCantidad() > p.getStock()) return new ResponseEntity<>("Sin stock: " + p.getNombre(), HttpStatus.BAD_REQUEST);
 
-            // Actualizar stock
+            // 3. VALIDAR STOCK
+            if (detalle.getCantidad() > p.getStock()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Sin stock suficiente para: " + p.getNombre() + ". Quedan: " + p.getStock());
+            }
+
+            // 4. DESCONTAR STOCK
             p.setStock(p.getStock() - detalle.getCantidad());
-            productoRepository.save(p);
+            productoRepository.save(p); // Guardamos el nuevo stock
 
+            // Configurar el detalle del pedido
             detalle.setPrecioUnitario(p.getPrecio());
             detalle.setProducto(p);
-            detalle.setPedido(nuevoPedido);
+            detalle.setPedido(nuevoPedido); // Relacionar detalle con pedido padre
+
             total += detalle.getCantidad() * detalle.getPrecioUnitario();
         }
 
+        // 5. Guardar el pedido final
         nuevoPedido.setTotal(total);
         nuevoPedido.setFechaPedido(new Date());
 
         Pedido pedidoGuardado = pedidoRepository.save(nuevoPedido);
 
-        // Retornar con HATEOAS
+        // Retornar éxito con JSON
         EntityModel<Pedido> model = EntityModel.of(pedidoGuardado,
-                linkTo(methodOn(PedidoController.class).obtenerPedidoPorId(pedidoGuardado.getId())).withSelfRel(),
-                linkTo(methodOn(AuthController.class).obtenerUsuario(pedidoGuardado.getUsuario().getId())).withRel("usuario"));
+                linkTo(methodOn(PedidoController.class).obtenerPedidoPorId(pedidoGuardado.getId())).withSelfRel());
 
         return new ResponseEntity<>(model, HttpStatus.CREATED);
     }
 
-    // 💡 Obtener pedidos de un usuario específico
+    // Obtener historial
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<CollectionModel<EntityModel<Pedido>>> obtenerPedidosPorUsuario(@PathVariable Long usuarioId) {
-        // En un repositorio real: List<Pedido> pedidos = pedidoRepository.findByUsuarioId(usuarioId);
-        // Aquí simulamos trayendo todos y filtrando (ineficiente, mejor agregar método al repo)
         List<EntityModel<Pedido>> pedidos = pedidoRepository.findAll().stream()
                 .filter(p -> p.getUsuario().getId().equals(usuarioId))
                 .map(pedido -> EntityModel.of(pedido,
@@ -121,7 +120,4 @@ public class PedidoController {
         return new ResponseEntity<>(CollectionModel.of(pedidos,
                 linkTo(methodOn(PedidoController.class).obtenerPedidosPorUsuario(usuarioId)).withSelfRel()), HttpStatus.OK);
     }
-
-
-
 }

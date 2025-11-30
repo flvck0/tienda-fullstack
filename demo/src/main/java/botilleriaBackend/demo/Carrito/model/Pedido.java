@@ -19,20 +19,20 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Relación con el Usuario (Muchos pedidos pueden ser de un usuario)
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario; // El usuario que realiza el pedido
+    private Usuario usuario;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaPedido = new Date();
 
-    private String estado = "PENDIENTE"; // E.g., PENDIENTE, ENVIADO, COMPLETADO
+    private String estado = "PENDIENTE";
 
+    // Queremos ver los detalles en el JSON, así que NO ponemos @JsonIgnore aquí.
+    // Pero SÍ lo pusimos en DetallePedido.java (en el campo 'pedido'), así que el ciclo se rompe.
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetallePedido> detalles; // Los productos dentro del pedido
+    private List<DetallePedido> detalles;
 
-    // Campo para calcular el total
     private double total;
 }

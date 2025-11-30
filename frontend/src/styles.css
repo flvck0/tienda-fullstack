@@ -1,8 +1,47 @@
-/* RESET SUAVE */
+/* ================================
+   HERO (Fondo principal HomePage)
+================================== */
+
+.hero {
+  width: 100%;
+  min-height: 380px;                /* evita que tape toda la página */
+  background-image: url('/imgs/fondo-hero.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  padding: 120px 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.hard-sep {
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.35), transparent);
+}
+
+main {
+  position: relative;
+  z-index: 3;
+}
+
+/* ================================
+   RESET SUAVE
+================================== */
 *{ box-sizing: border-box; }
 img{ max-width:100%; display:block; }
 
-/* HEADER sticky con blur */
+/* ================================
+   HEADER sticky con blur
+================================== */
 header{
   position: sticky; top: 0; z-index: 1000;
   background: rgba(0,0,0,.65);
@@ -27,10 +66,12 @@ header nav a:hover{ color: var(--brand-2); }
   .site-title{ font-size:1.25rem; text-align:center; }
 }
 
-/* CATEGORÍAS (barra sticky) */
+/* ================================
+   CATEGORÍAS sticky
+================================== */
 .categorias{
   max-width: 1200px; padding: 0 1rem; margin: 1rem auto 0;
-  position: sticky; top: 64px; z-index: 900; /* debajo del header */
+  position: sticky; top: 64px; z-index: 900;
 }
 .categorias::before{
   content:""; position:absolute; inset:-8px -999px 0; z-index:-1;
@@ -54,7 +95,9 @@ header nav a:hover{ color: var(--brand-2); }
   color:#1a1a1a; border-color: transparent;
 }
 
-/* PRODUCTOS */
+/* ================================
+   PRODUCTOS
+================================== */
 .productos{ max-width:1200px; margin: 1.4rem auto 3rem; padding: 0 1rem; color:#222; }
 #productos-titulo{ color:#222; }
 .grid-productos{
@@ -63,7 +106,7 @@ header nav a:hover{ color: var(--brand-2); }
   gap: 1.5rem;
 }
 
-/* Card */
+/* ===== Card ===== */
 .producto-card{
   position:relative; background:#fff; border-radius:16px; padding:1rem;
   box-shadow: 0 6px 20px rgba(0,0,0,.08); text-align:center;
@@ -71,15 +114,18 @@ header nav a:hover{ color: var(--brand-2); }
 }
 .producto-card:hover{ transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
 
-/* Imagen con micro-zoom + brillo de vidrio */
+/* Imagen */
 .producto-card .img-wrap{
-  position: relative; border-radius:12px; overflow:hidden; background: linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,.01));
+  position: relative; border-radius:12px; overflow:hidden;
+  background: linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,.01));
   height: 210px; display:grid; place-items:center;
 }
-.producto-card img{ width:100%; height:100%; object-fit:contain; transition: transform .25s; }
+.producto-card img{
+  width:100%; height:100%; object-fit:contain; transition: transform .25s;
+}
 .producto-card:hover img{ transform: scale(1.03); }
 
-/* brillo diagonal */
+/* brillo */
 .producto-card .img-wrap::after{
   content:""; position:absolute; inset:0; pointer-events:none;
   background: linear-gradient(75deg, transparent 20%, rgba(255,255,255,.18) 40%, transparent 60%);
@@ -94,12 +140,11 @@ header nav a:hover{ color: var(--brand-2); }
   padding:.3rem .6rem; border-radius:10px; margin:.6rem 0 .2rem;
 }
 
-/* Badges por categoría */
+/* Badges categoría */
 .badge{
   position:absolute; top:10px; left:10px; z-index:2;
-  font-weight:800; color:#1a1a1a; padding:.25rem .5rem; border-radius:999px; font-size:.75rem;
-  box-shadow: 0 6px 16px rgba(0,0,0,.18); border:1px solid rgba(0,0,0,.06);
-  background:#eee;
+  font-weight:800; padding:.25rem .5rem; border-radius:999px; font-size:.75rem;
+  background:#eee; box-shadow:0 6px 16px rgba(0,0,0,.18);
 }
 .badge.cerveza{ background:linear-gradient(180deg,#ffd36a,#f5a623); }
 .badge.vino{ background:linear-gradient(180deg,#b3475a,#d66d82); color:#fff; }
@@ -109,7 +154,9 @@ header nav a:hover{ color: var(--brand-2); }
 .badge.tequila{ background:linear-gradient(180deg,#d7ff74,#a5e35a); }
 .badge.energetico{ background:linear-gradient(180deg,#9df,#7cf); }
 
-/* ===== Skeletons (carga) ===== */
+/* ================================
+   Skeletons
+================================== */
 .skel-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:1.5rem; }
 .skel-card{
   background: #fff; border-radius:16px; padding:1rem; height: 320px; overflow:hidden;
@@ -123,245 +170,139 @@ header nav a:hover{ color: var(--brand-2); }
 .skel-line{ height: 12px; margin: .4rem 0; }
 @keyframes skel{ 0%{background-position: 100% 0;} 100%{background-position: -100% 0;} }
 
-/* PROMO */
+/* ================================
+   PROMO
+================================== */
 .promo{
-  background: #0f0f0f;
-  color:#fff; text-align:center; padding:1.4rem; border-radius:14px;
-  margin: 2rem auto; font-size:1.05rem; font-weight:800; max-width:1200px;
-  box-shadow: 0 10px 26px rgba(7, 6, 4, 0.25);
+  background:#0f0f0f; color:#fff; text-align:center;
+  padding:1.4rem; border-radius:14px;
+  margin:2rem auto; max-width:1200px;
+  font-weight:800; box-shadow:0 10px 26px rgba(7, 6, 4, 0.25);
 }
 
-/* RESEÑAS */
+/* ================================
+   RESEÑAS
+================================== */
 .resenas{ max-width:1200px; margin:3rem auto; padding:0 1rem; color:#222; }
 .grid-resenas{ display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:1.4rem; }
 .resenas blockquote{
-  background:#fff; padding:1rem 1.2rem; border-radius:14px; box-shadow: 0 6px 18px rgba(0,0,0,.08); font-style:italic;
+  background:#fff; padding:1.4rem 1.5rem; border-radius:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
-.resenas cite {
-  display: block;
-  margin-top: 0.8rem;
-  font-style: italic;
-  color: #b45309; /* dorado cálido */
-  font-weight: 600;
-  text-align: center;
-  font-size: 1rem;
-  letter-spacing: 0.4px;
+.resenas blockquote:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
-
-
-.resenas blockquote {
-  background: #fff;
-  padding: 1.4rem 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.resenas cite{
+  display:block; text-align:center;
+  margin-top:.8rem; font-style:italic;
+  color:#b45309; font-weight:600;
 }
 
-.resenas blockquote:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-
-/* VIDEO */
+/* ================================
+   VIDEO
+================================== */
 .video-responsivo{ position:relative; padding-bottom:56.25%; height:0; overflow:hidden; margin:1rem 0; }
 .video-responsivo iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
-/* FOOTER */
+/* ================================
+   FOOTER
+================================== */
 footer{
-  background: rgba(0,0,0,.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  background: rgba(0,0,0,.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   color:#fff; text-align:center; padding:2rem 1rem; margin-top:3rem;
   border-top: 1px solid rgba(255,255,255,.06);
 }
 .footer-contenido{ max-width:1200px; margin:auto; }
 .footer-contenido a{ color: var(--brand-2); }
-.footer-contenido .redes{ margin-top:.8rem; }
 .footer-contenido .redes a{ margin:0 .5rem; }
 
-/* FORMULARIOS */
+/* ================================
+   FORMULARIOS
+================================== */
 .form-section{
   max-width:420px; margin:4rem auto; background:#fff; color:#222;
-  padding:2rem; border-radius:16px; box-shadow: 0 14px 30px rgba(0,0,0,.12);
+  padding:2rem; border-radius:16px; box-shadow:0 14px 30px rgba(0,0,0,.12);
 }
-.form-section h2{ text-align:center; margin-bottom:1.2rem; color:#222; font-weight:800; }
+.form-section h2{ text-align:center; margin-bottom:1.2rem; font-weight:800; }
 .campo{ margin-bottom:1rem; }
-.campo label{ display:block; font-weight:700; margin-bottom:.45rem; color:#222; }
+.campo label{ display:block; font-weight:700; margin-bottom:.45rem; }
 .campo input, .campo select{
   width:100%; padding:.7rem; border:1px solid #ddd; border-radius:10px; font-size:1rem;
-  transition: box-shadow .15s, border-color .15s;
 }
-.campo input:focus{
-  border-color: var(--brand); outline:none; box-shadow: 0 0 0 3px rgba(245,166,35,.25);
-}
-.campo.checkbox{ display:flex; align-items:center; }
-.campo.checkbox input{ margin-right:.6rem; }
-.error{ color:#e53935; font-size:.85rem; margin-top:.3rem; display:block; }
 
-/* TOAST */
+/* ================================
+   TOAST
+================================== */
 .toast{
-  position: fixed; bottom: 20px; right: 20px; z-index: 3000;
-  background:#111; color:#fff; border:1px solid rgba(255,255,255,.08);
-  padding:.8rem 1rem; border-radius:12px; box-shadow: 0 10px 26px rgba(0,0,0,.25);
+  position: fixed; bottom:20px; right:20px; z-index:3000;
+  background:#111; color:#fff;
+  padding:.8rem 1rem; border-radius:12px;
+  box-shadow:0 10px 26px rgba(0,0,0,.25);
 }
-.toast .t-title{ font-weight:800; margin-bottom:.2rem; }
-.toast.ok{ background: linear-gradient(180deg, #1f1f1f, #0f0f0f); }
 
-/* Scroll to top */
+/* ================================
+   BOTÓN SUBIR
+================================== */
 .back-top{
-  position: fixed; right: 16px; bottom: 80px; z-index: 2500;
-  width: 46px; height: 46px; border-radius: 999px; border: 0;
+  position: fixed; right:16px; bottom:80px; z-index:2500;
+  width:46px; height:46px; border-radius:999px;
+  border:0; cursor:pointer;
   background: linear-gradient(180deg, var(--brand-2), var(--brand));
-  box-shadow: 0 10px 24px rgba(245,166,35,.35);
-  cursor: pointer; display: none;
+  box-shadow:0 10px 24px rgba(245,166,35,.35);
+  display:none;
 }
-.back-top.show{ display: inline-grid; place-items:center; }
-.back-top span{ font-size: 20px; }
+.back-top.show{ display:inline-grid; place-items:center; }
+.back-top span{ font-size:20px; }
 
-/* === Badges un poco más grandes y notorias === */
+/* ================================
+   Badge destacados/promo
+================================== */
 .card .badge-destacado,
 .card .badge-promo {
   position: absolute;
-  top: .6rem;
-  left: .6rem;
-  border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.9rem;              /* ⬅️ antes era .8rem, un pelín más grande */
-  padding: .4rem .85rem;          /* ⬅️ un poco más de espacio interno */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  letter-spacing: 0.2px;
-  transform: scale(1.05);         /* ⬅️ leve aumento de tamaño visual */
+  top: .6rem; left: .6rem;
+  border-radius: 10px; font-weight: 700;
+  font-size: .9rem; padding: .4rem .85rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
 }
-
-/* Gradiente verde más suave */
 .badge-destacado {
   background: linear-gradient(135deg, #16a34a, #22c55e);
-  color: #fff;
+  color:#fff;
 }
-
-/* Gradiente 2x1 cálido */
 .badge-promo {
   background: linear-gradient(135deg, #facc15, #f59e0b);
-  color: #1f2937;
+  color:#1f2937;
 }
 
-/* === Animación con rebote suave en hover === */
-.card .badge-destacado,
-.card .badge-promo {
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+.card:hover .badge-destacado,
+.card:hover .badge-promo {
+  transform: scale(1.14);
+  filter: brightness(1.18);
 }
 
-.card .badge-destacado:hover,
-.card .badge-promo:hover {
-  transform: scale(1.14);     /* leve aumento de tamaño */
-  filter: brightness(1.18);   /* un poquito más de luz */
-  cursor: default;
+/* Zoom en tarjetas */
+.card{ transition: transform .25s ease, box-shadow .25s ease; }
+.card:hover{
+  transform: translateY(-5px) scale(1.04);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
 }
 
-/* === Efecto suave de zoom en las tarjetas === */
-.card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px) scale(1.03); /* leve levantamiento + aumento */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18); /* sombra más profunda */
-}
-
-
-/* === Efecto de zoom general en las tarjetas === */
-.card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px) scale(1.04); /* la levanta y la agranda un poco */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22); /* sombra más profunda */
-}
-
-/* Título de sección legible sobre fondos con imagen/video */
-/* Título de sección super legible (pill dorado) */
-.section-title-wrap { text-align: center; margin-bottom: 1.25rem; }
+/* ================================
+   TÍTULOS DE SECCIÓN
+================================== */
+.section-title-wrap{ text-align:center; margin-bottom:1.25rem; }
 
 .section-title{
-  display: inline-block;
-  background: linear-gradient(135deg,#facc15,#f59e0b); /* dorado cálido */
-  color: #1f2937;                  /* texto oscuro = máximo contraste */
-  font-weight: 900;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  letter-spacing: .3px;
-  padding: .6rem 1.2rem;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 10px 30px rgba(0,0,0,.28);
+  display:inline-block;
+  background:linear-gradient(135deg,#facc15,#f59e0b);
+  color:#1f2937;
+  font-weight:900;
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  padding:.6rem 1.2rem;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);
 }
-
-/* Banner de promoción: MUY visible y legible */
-.promo-banner{
-  position: relative;
-  overflow: hidden;
-  border-radius: 18px;
-  padding: 1.25rem 1rem;
-  background: linear-gradient(135deg,#fde68a 0%, #fbbf24 45%, #f59e0b 100%);
-  color: #111827; /* gris muy oscuro */
-  box-shadow: 0 14px 32px rgba(0,0,0,.22);
-  border: 1px solid rgba(255,255,255,.35);
-}
-
-/* brillo suave arriba tipo “vidrio” */
-.promo-banner::before{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(to bottom, rgba(255,255,255,.35), transparent 45%);
-  pointer-events:none;
-}
-
-/* detalle de luz sutil */
-.promo-banner::after{
-  content:"";
-  position:absolute; inset:-30% -10% auto -10%; height:140%;
-  background: radial-gradient(ellipse at top, rgba(255,255,255,.18), transparent 60%);
-  pointer-events:none;
-}
-
-.promo-title{
-  margin: 0;
-  font-weight: 900;
-  font-size: clamp(1.4rem, 3.2vw, 2rem);
-  letter-spacing: .3px;
-  text-shadow: 0 1px 0 rgba(255,255,255,.35);
-}
-
-.promo-subtitle{
-  margin: .35rem 0 0;
-  font-weight: 700;
-  font-size: clamp(1rem, 2.2vw, 1.15rem);
-  opacity: .95;
-}
-
-/* === Testimonios: limpiar fondo gris del autor === */
-.card .card-body .blockquote-footer{
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-  height: auto !important;
-  min-height: 0 !important;
-  padding: .4rem 0 0 !important;
-  margin: .6rem 0 0 !important;
-  display: block;
-  text-align: center;            /* o 'right' si lo prefieres elegante */
-  color: #6b7280 !important;     /* gris suave */
-  font-weight: 600;
-  font-size: .95rem;
-}
-
-.card .card-body .blockquote-footer cite{
-  font-style: italic;            /* o normal si no quieres cursiva */
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: #6b7280 !important;
-}
-
-

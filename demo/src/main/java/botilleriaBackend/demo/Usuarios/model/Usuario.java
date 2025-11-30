@@ -1,14 +1,14 @@
 package botilleriaBackend.demo.Usuarios.model;
 
 import botilleriaBackend.demo.Carrito.model.Pedido;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore; // 👈 Importante
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails; // ⚠️ Importante
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario implements UserDetails { // ⚠️ AGREGAR: implements UserDetails
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,27 +33,21 @@ public class Usuario implements UserDetails { // ⚠️ AGREGAR: implements User
     private String nombre;
     private String direccion;
 
-    // Relación con Pedidos
+    // 🔥 SOLUCIÓN: @JsonIgnore evita que Jackson entre en bucle infinito
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Pedido> pedidos;
 
     @Enumerated(EnumType.STRING)
-    private Rol rol; // Ahora ya reconocerá el Enum Rol que creamos arriba
-
-    // --- Métodos requeridos por UserDetails ---
+    private Rol rol;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Si el rol es nulo, asignamos "USER" por defecto
         return List.of(new SimpleGrantedAuthority(rol != null ? rol.name() : "USER"));
     }
 
     @Override
-    public String getUsername() {
-        return email;
-    }
-
+    public String getUsername() { return email; }
     @Override
     public boolean isAccountNonExpired() { return true; }
     @Override
