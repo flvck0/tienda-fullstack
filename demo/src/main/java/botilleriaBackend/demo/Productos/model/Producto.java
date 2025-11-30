@@ -1,16 +1,17 @@
-package botilleriaBackend.demo.Productos.model;
+package botilleriaBackend.demo.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Entity
 @Table(name = "producto")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Producto {
 
     @Id
@@ -29,11 +30,14 @@ public class Producto {
     @Column(nullable = false)
     private int stock;
 
-    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date fecha;
 
-    @Column(length = 255)
+    @Column(name = "imagen_url", length = 255)
     private String imagenUrl;
 
+    // 👉 NUEVO: categoría (para filtros en el frontend)
+    @Column(length = 50)
+    private String categoria;
 }
