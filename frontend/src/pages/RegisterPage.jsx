@@ -30,7 +30,10 @@ function RegisterPage() {
     if (!ok) return;
 
     // CONEXIÓN AL BACKEND SPRING BOOT
-    fetch('http://localhost:8080/api/auth/register', {
+    // Usamos la variable de entorno
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    fetch(`${API_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

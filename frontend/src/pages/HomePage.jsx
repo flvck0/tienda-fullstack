@@ -21,12 +21,15 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [filtroActivo, setFiltroActivo] = useState('todos');
   const [toast, setToast] = useState(null); 
-  const { agregarAlCarrito, carrito } = useCart(); // Traemos 'carrito' para validar stock localmente si quisieras
+  const { agregarAlCarrito, carrito } = useCart(); 
 
   useEffect(() => {
-    // URL del Backend Spring Boot
-    // Asegúrate de que el backend esté corriendo en el puerto 8080
-    fetch('http://localhost:8080/api/productos')
+    // URL del Backend (Dinámica: Local o Nube)
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    console.log("Conectando a:", API_URL); // Para depuración
+
+    fetch(`${API_URL}/api/productos`)
       .then(res => {
         if (!res.ok) {
             throw new Error('Error al conectar con el backend');
@@ -41,7 +44,6 @@ function HomePage() {
       .catch(err => {
         console.error("Error al hacer fetch:", err);
         setLoading(false);
-        // Opcional: Mostrar un mensaje de error en la UI si falla la carga inicial
       });
   }, []);
 
@@ -51,7 +53,6 @@ function HomePage() {
   });
 
   const addToCartWithToast = (prod) => {
-    // Validación extra de seguridad: No permitir agregar si no hay stock
     if (prod.stock <= 0) {
         alert("Lo sentimos, este producto está agotado.");
         return;
@@ -123,7 +124,6 @@ function HomePage() {
           )}
 
           {!loading && productosFiltrados.map(prod => {
-            // Variable auxiliar para saber si está agotado
             const sinStock = prod.stock <= 0;
             const pocoStock = prod.stock > 0 && prod.stock < 5;
 
@@ -132,7 +132,6 @@ function HomePage() {
                 
                 <div className={`card h-100 shadow-sm position-relative ${sinStock ? 'border-danger' : ''}`}>
                   
-                  {/* Badge de Promoción o Agotado */}
                   <span
                     className={`badge ${
                       sinStock 
@@ -157,7 +156,6 @@ function HomePage() {
                     <h3 className="card-title h5">{prod.nombre}</h3>
                     <p className="card-text small text-muted flex-grow-1">{prod.descripcion}</p>
                     
-                    {/* --- MOSTRAR STOCK --- */}
                     <div className="d-flex justify-content-between align-items-center mb-2">
                         <span className="h4 text-warning fw-bold mb-0">${prod.precio.toLocaleString()}</span>
                         <small className={`fw-bold ${sinStock ? 'text-danger' : pocoStock ? 'text-warning' : 'text-success'}`}>
@@ -168,7 +166,7 @@ function HomePage() {
                     <button 
                       className={`btn ${sinStock ? 'btn-secondary' : 'btn-warning'} mt-auto`}
                       onClick={() => addToCartWithToast(prod)}
-                      disabled={sinStock} // 🚫 AQUÍ SE BLOQUEA EL BOTÓN VISUALMENTE
+                      disabled={sinStock} 
                     >
                       {sinStock ? 'Agotado 🚫' : 'Pedir ahora'}
                     </button>

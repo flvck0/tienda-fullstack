@@ -16,8 +16,11 @@ function AdminPage() {
       return;
     }
 
+    // Usar la variable de entorno para la URL
+    const API_URL = import.meta.env.VITE_API_URL;
+
     // Cargar productos desde el backend
-    fetch('http://localhost:8080/api/productos')
+    fetch(`${API_URL}/api/productos`)
       .then(res => res.json())
       .then(data => setProductos(data))
       .catch(err => console.error("Error cargando inventario:", err));
@@ -27,7 +30,8 @@ function AdminPage() {
   const handleDelete = (id) => {
     if(window.confirm("¿Seguro que quieres eliminar este producto?")) {
         // Aquí iría el fetch DELETE...
-        // fetch(`http://localhost:8080/api/productos/${id}`, { method: 'DELETE' })
+        // const API_URL = import.meta.env.VITE_API_URL;
+        // fetch(`${API_URL}/api/productos/${id}`, { method: 'DELETE' })
         alert("Función de eliminar pendiente de conectar");
     }
   };
