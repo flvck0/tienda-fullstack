@@ -5,7 +5,7 @@ COPY . .
 # Dar permisos de ejecución al instalador de Maven
 RUN chmod +x mvnw
 # Crear el archivo ejecutable
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw clean package -Dmaven.test.skip=true
 
 # 2. Usar una imagen ligera con Java 21 para ejecutar la app
 FROM eclipse-temurin:21-jre
